@@ -100,18 +100,18 @@ This will generate a directory called netlify/edge-functions. We will create a n
 
 Finally we can add the edge to our functionpage.liquid file
 
-``
-   The content outside of the `edge` shortcode is generated with the Build.
+`
+   The content outside of the edge shortcode is generated with the Build.
 
    {% edge %}
-   The content inside of the `edge` shortcode is generated on the Edge.
+   The content inside of the edge shortcode is generated on the Edge.
 
    <pre>
    {{ eleventy | json }}
    {{SomeData | json}}
    </pre>
    {% endedge %}
-``
+`
 
 
 
