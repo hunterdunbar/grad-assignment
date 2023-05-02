@@ -17,16 +17,23 @@ As long as the edge is define in a template that falls within the routes defined
 ## Tutorial
 ### Setup
 Initialize Node project
-`Npm init –y`
+`
+   Npm init –y
+`
 Install Eleventy
-`Npm install @11ty/eleventy --save dev`
+`
+   Npm install @11ty/eleventy --save dev
+`
 Create a basic eleventy project setup with src and dist directories. 
 
 ### Function setup
 Install the Netlify CLI
-`npm install netlify-cli`
+`
+   npm install netlify-cli
+`
 Create a simple eleventy config file
-`const { EleventyEdgePlugin } = require("@11ty/eleventy");
+`
+   const { EleventyEdgePlugin } = require("@11ty/eleventy");
 
    module.exports = function(eleventyConfig) {
 
@@ -41,17 +48,23 @@ Create a simple eleventy config file
    };
 `
 Create a file in the root directory called "netlify.toml". We are going to place our edge function in a page called "functionpage.liquid". So in our toml file we will define a path to /functionpage. Only requests to this path will call the edge. We will call our function "myfirstedge"
-`[[edge_functions]]
-function = "myfirstedge"
-path = "/functionpage/"`
+`
+   [[edge_functions]]
+   function = "myfirstedge"
+   path = "/functionpage/"
+`
 
 If we now just run npx netlify dev, the netlify cli will generate scaffolding for our edge functions. 
-`npx netlify dev`
+`
+   npx netlify dev
+`
 Answer yes to the terminal prompts
-`◈ Netlify Dev ◈
-◈ Ignored general context env var: LANG (defined in process)
-? Would you like to configure VS Code to use Edge Functions? Yes
-? A new VS Code settings file will be created at /Users/wdunbar/jamstack/grad-edge/.vscode/settings.json Yes`
+`
+   ◈ Netlify Dev ◈
+   ◈ Ignored general context env var: LANG (defined in process)
+   ? Would you like to configure VS Code to use Edge Functions? Yes
+   ? A new VS Code settings file will be created at /Users/wdunbar/jamstack/grad-edge/.vscode/settings.json Yes
+`
 
 This will generate a directory called netlify/edge-functions. We will create a new file in this directory called myfirstedge.js
 `
@@ -87,7 +100,7 @@ This will generate a directory called netlify/edge-functions. We will create a n
 
 Finally we can add the edge to our functionpage.liquid file
 
-`
+``
    The content outside of the `edge` shortcode is generated with the Build.
 
    {% edge %}
@@ -98,8 +111,7 @@ Finally we can add the edge to our functionpage.liquid file
    {{SomeData | json}}
    </pre>
    {% endedge %}
-`
-
+``
 
 
 
