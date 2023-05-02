@@ -17,7 +17,9 @@ As long as the edge is define in a template that falls within the routes defined
 ## Tutorial
 ### Setup
 Initialize Node project:
-   Npm init –y
+   `Npm init –y`
 Install Eleventy
-   Npm install @11ty/eleventy --save dev
+   `Npm install @11ty/eleventy --save dev`
+
+
 
