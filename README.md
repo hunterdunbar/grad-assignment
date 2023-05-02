@@ -28,11 +28,11 @@ Create a basic eleventy project setup with src and dist directories.
 
 ### Function setup
 Install the Netlify CLI
-`
+```
    npm install netlify-cli
-`
+```
 Create a simple eleventy config file
-`
+```
    const { EleventyEdgePlugin } = require("@11ty/eleventy");
 
    module.exports = function(eleventyConfig) {
@@ -46,28 +46,29 @@ Create a simple eleventy config file
       }
    };
    };
-`
+```
 Create a file in the root directory called "netlify.toml". We are going to place our edge function in a page called "functionpage.liquid". So in our toml file we will define a path to /functionpage. Only requests to this path will call the edge. We will call our function "myfirstedge"
-`
+```
    [[edge_functions]]
    function = "myfirstedge"
    path = "/functionpage/"
-`
+```
 
 If we now just run npx netlify dev, the netlify cli will generate scaffolding for our edge functions. 
-`
+```
    npx netlify dev
-`
+```
+
 Answer yes to the terminal prompts
-`
+```
    ◈ Netlify Dev ◈
    ◈ Ignored general context env var: LANG (defined in process)
    ? Would you like to configure VS Code to use Edge Functions? Yes
    ? A new VS Code settings file will be created at /Users/wdunbar/jamstack/grad-edge/.vscode/settings.json Yes
-`
+```
 
 This will generate a directory called netlify/edge-functions. We will create a new file in this directory called myfirstedge.js
-`
+```
    import {
       EleventyEdge,
       precompiledAppData,
@@ -96,7 +97,7 @@ This will generate a directory called netlify/edge-functions. We will create a n
       return context.next(e);
       }
    };
-`
+```
 
 Finally we can add the edge to our functionpage.liquid file
 
@@ -113,6 +114,6 @@ Finally we can add the edge to our functionpage.liquid file
    {% endedge %}
 ```
 
-
+Run npx netlify dev to start the project and navigate to localhost:XXXX/functionpage to view the edge function in action. This tutorial hardcodes {"hello":"world"} into the global data. However, we could easily add a fetch and pull in external data. 
 
 
