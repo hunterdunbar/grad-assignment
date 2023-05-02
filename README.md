@@ -40,6 +40,65 @@ Create a simple eleventy config file
    };
    };
 `
+Create a file in the root directory called "netlify.toml". We are going to place our edge function in a page called "functionpage.liquid". So in our toml file we will define a path to /functionpage. Only requests to this path will call the edge. We will call our function "myfirstedge"
+`[[edge_functions]]
+function = "myfirstedge"
+path = "/functionpage/"`
+
+If we now just run npx netlify dev, the netlify cli will generate scaffolding for our edge functions. 
+`npx netlify dev`
+Answer yes to the terminal prompts
+`◈ Netlify Dev ◈
+◈ Ignored general context env var: LANG (defined in process)
+? Would you like to configure VS Code to use Edge Functions? Yes
+? A new VS Code settings file will be created at /Users/wdunbar/jamstack/grad-edge/.vscode/settings.json Yes`
+
+This will generate a directory called netlify/edge-functions. We will create a new file in this directory called myfirstedge.js
+`
+   import {
+      EleventyEdge,
+      precompiledAppData,
+   } from "./_generated/eleventy-edge-app.js";
+   
+   export default async (request, context) => {
+      try {
+      let edge = new EleventyEdge("edge", {
+         request,
+         context,
+         precompiled: precompiledAppData,
+   
+         // default is [], add more keys to opt-in e.g. ["appearance", "username"]
+         cookies: [],
+      });
+      console.log("We are in the edge");
+      edge.config((eleventyConfig) => {
+         eleventyConfig.addGlobalData("SomeData", {
+            "hello": "world"
+         });
+      });
+   
+      return await edge.handleResponse();
+      } catch (e) {
+      console.log("ERROR", { e });
+      return context.next(e);
+      }
+   };
+`
+
+Finally we can add the edge to our functionpage.liquid file
+
+`
+   The content outside of the `edge` shortcode is generated with the Build.
+
+   {% edge %}
+   The content inside of the `edge` shortcode is generated on the Edge.
+
+   <pre>
+   {{ eleventy | json }}
+   {{SomeData | json}}
+   </pre>
+   {% endedge %}
+`
 
 
 
