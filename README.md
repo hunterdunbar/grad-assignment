@@ -16,10 +16,32 @@ As long as the edge is define in a template that falls within the routes defined
 
 ## Tutorial
 ### Setup
-Initialize Node project:
+Initialize Node project
 `Npm init –y`
 Install Eleventy
 `Npm install @11ty/eleventy --save dev`
+Create a basic eleventy project setup with src and dist directories. 
+
+### Function setup
+Install the Netlify CLI
+`npm install netlify-cli`
+Create a simple eleventy config file
+`const { EleventyEdgePlugin } = require("@11ty/eleventy");
+
+   module.exports = function(eleventyConfig) {
+
+    eleventyConfig.addPlugin(EleventyEdgePlugin);
+
+   return {
+      dir: {
+         input: "src",
+         output: "dist"
+      }
+   };
+   };
+`
+
+
 
 
 
